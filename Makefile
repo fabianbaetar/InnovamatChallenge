@@ -1,0 +1,2 @@
+setupDB:
+	php setupDB.php
