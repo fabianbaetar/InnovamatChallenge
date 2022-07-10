@@ -3,20 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Activity;
+use SQLite3;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
 {
-    /**
-     * @Route("/activities")
-     */
     public function getActivities(Request $request): JsonResponse
     {
         if ($request->getMethod() == "GET") {
-            $db = new \SQLite3("../innovamat.sqlite");
+            $db = new SQLite3("../innovamat.sqlite");
             $query = $db->query('SELECT * FROM activity WHERE itinerary = 1 order by difficulty, position');
 
             $array = array();
@@ -43,7 +40,7 @@ class MainController extends AbstractController
                 return new JsonResponse("Valor de dificultad invalido");
             }
 
-            $db = new \SQLite3("../innovamat.sqlite");
+            $db = new SQLite3("../innovamat.sqlite");
             $query = $db->exec(
                 sprintf(
                     "INSERT INTO activity (identifier, name, position, time, difficulty, solution, itinerary) VALUES (\"%s\", \"%s\", %s, %s, %s, \"%s\", 1)",
@@ -62,14 +59,11 @@ class MainController extends AbstractController
         return new JsonResponse();
     }
 
-    /**
-     * @Route("/registerActivity", methods={"POST"})
-     */
-    public function RegisterActivity(Request $request): JsonResponse
+    public function registerActivity(Request $request): JsonResponse
     {
         $params = \json_decode($request->getContent(), true);
 
-        $db = new \SQLite3("../innovamat.sqlite");
+        $db = new SQLite3("../innovamat.sqlite");
 
         $query = $db->query(sprintf("SELECT * FROM activity where identifier = \"%s\"", $params['identifier']));
 
@@ -115,12 +109,9 @@ class MainController extends AbstractController
         return new JsonResponse();
     }
 
-    /**
-     * @Route("/nextActivity", methods={"GET"})
-     */
-    public function NextActivity(Request $request): JsonResponse
+    public function nextActivity(Request $request): JsonResponse
     {
-        $db = new \SQLite3("../innovamat.sqlite");
+        $db = new SQLite3("../innovamat.sqlite");
 
         $query = $db->query(
             sprintf("select

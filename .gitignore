@@ -9,3 +9,10 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+
+composer.lock
+symfony.lock
+innovamat.sqlite
+
+.env.test
+bin/phpunit

@@ -1,3 +1,14 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+activities:
+  path: /activities
+  controller: App\Controller\MainController::getActivities
+  methods: GET
+
+register_activity:
+  path: /registerActivity
+  controller: App\Controller\MainController:registerActivity
+  methods: POST
+
+nextActivity:
+  path: /registerActivity
+  controller: App\Controller\MainController::nextActivity
+  methods: GET
