@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Activity;
+use App\Application\Query\GetAllActivitiesQuery;
+use App\Application\QueryHandler\GetAllActivitiesQueryHandler;
+use App\Domain\Entity\Activity;
+use App\Infrastructure\Repository\ActivityRepository;
 use SQLite3;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -13,23 +16,10 @@ class MainController extends AbstractController
     public function getActivities(Request $request): JsonResponse
     {
         if ($request->getMethod() == "GET") {
-            $db = new SQLite3("../innovamat.sqlite");
-            $query = $db->query('SELECT * FROM activity WHERE itinerary = 1 order by difficulty, position');
-
-            $array = array();
-
-            while ($row = $query->fetchArray(SQLITE3_NUM)) {
-
-                $newActivity = [
-                    $row[0],
-                    $row[1],
-                    $row[2],
-                    $row[3],
-                    $row[4],
-                    $row[5]
-                ];
-                array_push($array, $newActivity);
-            }
+            $activityRepository = new ActivityRepository();
+            $getAllActivitiesQueryHandler = new GetAllActivitiesQueryHandler($activityRepository);
+            $getAllActivitiesQuery = new GetAllActivitiesQuery();
+            $array = $getAllActivitiesQueryHandler->execute($getAllActivitiesQuery);
 
             return new JsonResponse($array);
         } else {
@@ -72,13 +62,13 @@ class MainController extends AbstractController
         $activity = new Activity($row[0], $row[1], $row[2], $row[3], $row[4], $row[5]);
 
         $answers = explode('_', $params['answers']);
-        $aAnswers = explode('_', $activity->getSolution());
+        $aAnswers = explode('_', $activity->solution());
 
         if (count($answers) !== count($aAnswers)) {
             return new JsonResponse(sprintf(
                 "Las respuestas dadas '%s' no concuerdan con la solución '%s'",
                 $params['answers'],
-                $activity->getSolution()
+                $activity->solution()
             ));
         }
         /*

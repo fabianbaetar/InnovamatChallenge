@@ -1,6 +1,6 @@
 I decided to create this binnacle to explain how I'm facing this challenge and what are my steps in it.
 
-The first point, after reading all the information from the README file, I decided to test and try the application.
+The first point, after reading all the information from the ```readme.md``` file, I decided to test and try the application.
 As I saw, one of the main improvements that would be nice is adding docker to create containers where load the application.
 This is also important to avoid dependencies errors or problems related to versions of the libraries.
 If I had enough time, this would be one of my first steps, but for now I will try to load the app and see what I can do.
@@ -15,7 +15,7 @@ When I have the application running, the next step is to analyze the code.
 Then, is the time to decide which things we could do with this code. This is the list of possible actions:
 - Fix the entity, leaving the methods only used (getters), remove the unnecessary (setters) and use the correct visibility of the properties (private).
 - Move the logic from the controller to a more appropriate structure.
-- Add routes to their correspondent config file (routes.yaml).
+- Add routes to their correspondent config file ```routes.yaml```.
 - Adding testing (unit and acceptance tests) for our logic.
 
 My wish list if I had time for doing it and not only 2-3 hours:
@@ -26,3 +26,10 @@ When I had some ideas wrote and thought for the code without seeing it in a more
 I started to add the routes and move them from the controller.
 
 When I did this point, I decided that it could be a good idea to have this binnacle for understanding better my decisions.
+
+My next points will be fixing the entity and move the first endpoint from the main controller.
+- I see that the same endpoint ```/activites``` is used for get all the activities and save a new activity. 
+I decided to separate in two different endpoints because they are different actions.
+- When I'm separating the endpoints, I decided to do a DDD with CQRS approach for this project.
+It's only an approach because, in this case, we will don't have any bus to send our commands and queries but, in an iterative solution, which is what I'm proposing, it would be nice to have the code with this structure.
+- 
