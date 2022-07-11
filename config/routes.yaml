@@ -1,7 +1,12 @@
 activities:
   path: /activities
-  controller: App\Controller\MainController::getActivities
+  controller: App\Controller\GetAllActivitiesController::getActivities
   methods: GET
+
+add_activity:
+  path: /addActivity
+  controller: App\Controller\AddActivityController::addActivity
+  methods: POST
 
 register_activity:
   path: /registerActivity
@@ -9,6 +14,6 @@ register_activity:
   methods: POST
 
 nextActivity:
-  path: /registerActivity
+  path: /nextActivity
   controller: App\Controller\MainController::nextActivity
   methods: GET

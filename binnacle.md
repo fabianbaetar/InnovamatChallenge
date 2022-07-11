@@ -32,4 +32,7 @@ My next points will be fixing the entity and move the first endpoint from the ma
 I decided to separate in two different endpoints because they are different actions.
 - When I'm separating the endpoints, I decided to do a DDD with CQRS approach for this project.
 It's only an approach because, in this case, we will don't have any bus to send our commands and queries but, in an iterative solution, which is what I'm proposing, it would be nice to have the code with this structure.
+- Command and Query classes are used as DTOs.
+- I decided to separate into different controllers each endpoint.
+- If I had more time I would make a correct process of error messages in the application (exceptions) and returns (responses) to the user.
 - 

@@ -2,10 +2,7 @@
 
 namespace App\Controller;
 
-use App\Application\Query\GetAllActivitiesQuery;
-use App\Application\QueryHandler\GetAllActivitiesQueryHandler;
 use App\Domain\Entity\Activity;
-use App\Infrastructure\Repository\ActivityRepository;
 use SQLite3;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -13,42 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class MainController extends AbstractController
 {
-    public function getActivities(Request $request): JsonResponse
-    {
-        if ($request->getMethod() == "GET") {
-            $activityRepository = new ActivityRepository();
-            $getAllActivitiesQueryHandler = new GetAllActivitiesQueryHandler($activityRepository);
-            $getAllActivitiesQuery = new GetAllActivitiesQuery();
-            $array = $getAllActivitiesQueryHandler->execute($getAllActivitiesQuery);
-
-            return new JsonResponse($array);
-        } else {
-            $params = \json_decode($request->getContent(), true);
-            // var_dump($params);
-
-            if ($params['difficulty'] < 0 || $params['difficulty'] > 10) {
-                return new JsonResponse("Valor de dificultad invalido");
-            }
-
-            $db = new SQLite3("../innovamat.sqlite");
-            $query = $db->exec(
-                sprintf(
-                    "INSERT INTO activity (identifier, name, position, time, difficulty, solution, itinerary) VALUES (\"%s\", \"%s\", %s, %s, %s, \"%s\", 1)",
-                    $params['identifier'],
-                    $params['name'],
-                    $params['position'],
-                    $params['time'],
-                    $params['difficulty'],
-                    $params['solution']
-                )
-            );
-
-            new JsonResponse();
-        }
-
-        return new JsonResponse();
-    }
-
     public function registerActivity(Request $request): JsonResponse
     {
         $params = \json_decode($request->getContent(), true);
