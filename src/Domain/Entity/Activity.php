@@ -9,7 +9,7 @@ class Activity
     private string $name;
     private int $difficulty;
     private int $position;
-    private int $identifier;
+    private string $identifier;
     private int $time;
     private string $solution;
 
@@ -17,7 +17,7 @@ class Activity
         string $name,
         int $difficulty,
         int $position,
-        int $identifier,
+        string $identifier,
         int $time,
         string $solution
     ) {

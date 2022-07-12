@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class AddActivityController extends abstractController
 {
-    public function getActivities(Request $request): JsonResponse
+    public function addActivity(Request $request): JsonResponse
     {
         $params = \json_decode($request->getContent(), true);
 

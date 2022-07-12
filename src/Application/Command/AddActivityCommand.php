@@ -6,7 +6,7 @@ namespace App\Application\Command;
 
 class AddActivityCommand
 {
-    private int $identifier;
+    private string $identifier;
     private string $name;
     private int $position;
     private int $time;
@@ -14,7 +14,7 @@ class AddActivityCommand
     private string $solution;
 
     public function __construct(
-        int $identifier,
+        string $identifier,
         string $name,
         int $position,
         int $time,
@@ -29,7 +29,7 @@ class AddActivityCommand
         $this->solution = $solution;
     }
 
-    public function getIdentifier(): int
+    public function getIdentifier(): string
     {
         return $this->identifier;
     }

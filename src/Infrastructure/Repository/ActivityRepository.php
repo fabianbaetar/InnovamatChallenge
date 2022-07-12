@@ -46,7 +46,7 @@ class ActivityRepository implements ActivityRepositoryInterface
     }
 
     public function addActivity(
-        int $identifier,
+        string $identifier,
         string $name,
         int $position,
         int $time,
@@ -59,7 +59,7 @@ class ActivityRepository implements ActivityRepositoryInterface
         SQL;
 
         $smt = $this->db->prepare($sql);
-        $smt->bindValue(':identifier', $identifier, SQLITE3_INTEGER);
+        $smt->bindValue(':identifier', $identifier, SQLITE3_TEXT);
         $smt->bindValue(':name', $name, SQLITE3_TEXT);
         $smt->bindValue(':position', $position, SQLITE3_INTEGER);
         $smt->bindValue(':time', $time, SQLITE3_INTEGER);

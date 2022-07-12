@@ -9,7 +9,7 @@ interface ActivityRepositoryInterface
     public function getAllActivities(): array;
 
     public function addActivity(
-        int $identifier,
+        string $identifier,
         string $name,
         int $position,
         int $time,
