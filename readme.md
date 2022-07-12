@@ -151,7 +151,7 @@ Example of request:
 GET http://localhost:8000/activities
 ```
 
-#### Add an activity: ```/activities```.
+#### Add an activity: ```/addActivity```.
 
 Example of request:
 ```
